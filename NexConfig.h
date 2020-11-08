@@ -47,16 +47,19 @@
  * during SW upload NodeMcu RX pin must be disconnected from Nextion
  */
 //#define NEX_SOFTWARE_SERIAL
-#ifndef NEX_SOFTWARE_SERIAL
-// hardware Serial port
-#define nexSerial Serial
-#else
-// NodeMcu / Esp8266 Softwareserial if usb port used for debug 
-// NodeMcu board pin numbers not match with Esp8266 pin numbers use NodeMcu Pin number definitions (pins_arduino.h)
-#define NEX_RX D2
-#define NEX_TX D1
-#endif
+//#ifndef NEX_SOFTWARE_SERIAL
+//  // hardware Serial port
+//  #define nexSerial Serial
+//#else
+//  // NodeMcu / Esp8266 Softwareserial if usb port used for debug 
+//  // NodeMcu board pin numbers not match with Esp8266 pin numbers use NodeMcu Pin number definitions (pins_arduino.h)
+//  #define NEX_RX D2
+//  #define NEX_TX D1
+//#endif
 
+#include <SoftwareSerial.h>
+extern SoftwareSerial HMISerial;
+#define nexSerial HMISerial
 
 #ifdef DEBUG_SERIAL_ENABLE
 #define dbSerialPrint(a)    dbSerial.print(a)
@@ -67,6 +70,7 @@
 #define dbSerialPrintln(a) do{}while(0)
 #define dbSerialBegin(a)   do{}while(0)
 #endif
+
 
 /**
  * @}
